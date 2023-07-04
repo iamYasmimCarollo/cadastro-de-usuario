@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cadastro de Usuários</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="cadastroUsuario">
+        <h1>Cadastro de Usuários</h1>
+        <form id="cadastroForm">
+          <div class="cadastroForm_Item">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required />
+          </div>
+          <div class="cadastroForm_Item">
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" required />
+          </div>
+          <div class="cadastroForm_Item">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+          </div>
+          <div class="cadastroForm_Item">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" required />
+          </div>
+          <button type="submit">Cadastrar</button>
+        </form>
+      </div>
+      <div class="listaUsuario">
+        <h2>Usuários Cadastrados</h2>
+        <ul id="usuarios"></ul>
+
+        <script>
+          let usuarios = [];
+
+          const cadastrarUsuario = (event) => {
+            event.preventDefault();
+
+            let nome = document.getElementById("nome").value;
+            let idade = document.getElementById("idade").value;
+            let email = document.getElementById("email").value;
+            let senha = document.getElementById("senha").value;
+
+            let usuario = {
+              nome: nome,
+              idade: idade,
+              email: email,
+              senha: senha,
+            };
+
+            usuarios.push(usuario);
+
+            document.getElementById("nome").value = "";
+            document.getElementById("idade").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("senha").value = "";
+
+            atualizarListaUsuarios();
+          };
+
+          const atualizarListaUsuarios = () => {
+            let listaUsuarios = document.getElementById("usuarios");
+            listaUsuarios.innerHTML = "";
+
+            usuarios.forEach(function (usuario) {
+              let itemLista = document.createElement("li");
+              itemLista.textContent =
+                "Nome: " +
+                usuario.nome +
+                ", Idade: " +
+                usuario.idade +
+                ", Email: " +
+                usuario.email;
+
+              listaUsuarios.appendChild(itemLista);
+            });
+          };
+
+          document
+            .getElementById("cadastroForm")
+            .addEventListener("submit", cadastrarUsuario);
+        </script>
+      </div>
+    </div>
+  </body>
+</html>
